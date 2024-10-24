@@ -4,10 +4,10 @@ new Vue({
     gameInterval: null,
     runnerPosition: 0,
     isJumping: false,
-    jumpHeight: 150,
-    gravity: 3,  // Adjusted gravity for slower jumps
+    jumpHeight: 200,
+    gravity: 0.8,  // Adjusted gravity for slower jumps
     obstacles: [],
-    obstacleSpeed: 5,  // Speed at which obstacles move
+    obstacleSpeed: 2,  // Speed at which obstacles move
     score: 0,
     isGameOver: false,
     obstacleImages: [
@@ -20,11 +20,20 @@ new Vue({
     startGame() {
       this.resetGame();
 
+       // Start the game loop using requestAnimationFrame for smoother rendering
+    const gameLoop = () => {
+      if (!this.isGameOver) {
+        this.gameLoop();
+        requestAnimationFrame(gameLoop); // Recursively call the loop
+      }
+    };
+
+    requestAnimationFrame(gameLoop);
       // Start the game loop (slowed down to 50ms per iteration)
-      this.gameInterval = setInterval(this.gameLoop, 50);
+      //this.gameInterval = setInterval(this.gameLoop, 20);
 
       // Spawn obstacles independently at regular intervals (e.g., every 2-3 seconds)
-      this.spawnInterval = setInterval(this.spawnObstacle, 2000);
+      this.spawnInterval = setInterval(this.spawnObstacle, 1250);
     },
     resetGame() {
       this.isGameOver = false;
@@ -76,21 +85,52 @@ new Vue({
       });
     },
     checkCollision() {
-      const runner = { x: 50, y: this.runnerPosition.y, width: 50, height: 50 };
+      const runnerCenter = {
+        x: 50 + 25, // Runner's X position + half the width (center)
+        y: this.runnerPosition + 25 // Runner's Y position + half the height (center)
+      };
+    
+      let closestObstacle = null;
+      let closestDistance = Infinity; // Start with a large number to compare distances
 
       this.obstacles.forEach(obstacle => {
-        if (
-          runner.x < obstacle.position + obstacle.width &&
-          runner.x + runner.width > obstacle.position &&
-          runner.y + runner.height > 200 - obstacle.height
-        ) {
+        const obstacleCenter = {
+          x: 1000 - obstacle.position + 25, // Obstacle's X position + half width
+          y: 25 // Obstacle is on the ground, so its Y center is half its height
+        };
+    
+        // Calculate the distance between runner and obstacle centers
+        const distanceX = Math.abs(runnerCenter.x - obstacleCenter.x);
+        const distanceY = Math.abs(runnerCenter.y - obstacleCenter.y);
+        const closestPossible = obstacleCenter.x - runnerCenter.x;
+
+        if (closestPossible > 0 && distanceX < closestDistance) {
+          closestDistance = distanceX;
+          closestObstacle = obstacle;
+        }
+
+
+
+
+        // Check if the distance between centers is less than a threshold (50 is the size of the runner/obstacle)
+        if (distanceX < 30 && distanceY < 20) {
           this.isGameOver = true;
           clearInterval(this.gameInterval);
           clearInterval(this.spawnInterval);
-          alert("Game Over!");
+
+          console.log('Closest Obstacle:', closestObstacle);
+          if (closestObstacle.image == "img/github.png")
+          {
+            alert('37 conflitos no merge! G A M E O V E R');
+          }
+          else{
+            alert('Illegal instruction exception! G A M E O V E R');
+          }
+
         }
       });
     }
+    
   },
   mounted() {
     window.addEventListener('keydown', this.jump);

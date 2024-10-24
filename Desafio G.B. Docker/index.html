@@ -27,34 +27,33 @@
     <div id="app">
       <div class="game-container">
         <!-- Runner -->
-        <img 
-        class="runner" 
-        :class="{ jumping: isJumping }"
-        src="img/player1.png"
-        alt = "Character"
-        :style="{ bottom: runnerPosition + 'px' }"
+        <img
+          class="runner"
+          :class="{ jumping: isJumping }"
+          src="img/player1.png"
+          alt="Character"
+          :style="{ bottom: runnerPosition + 'px' }"
         />
-    
+
         <!-- Obstacles -->
         <img
-        class="obstacle"
-        v-for="(obstacle, index) in obstacles"
-        :key="index"
-        :src="obstacle.image"
-        alt="Obstacle"
-        :style="{ right: obstacle.position + 'px', backgroundColor: 'transparent' }"
-      />
-    
+          class="obstacle"
+          v-for="(obstacle, index) in obstacles"
+          :key="index"
+          :src="obstacle.image"
+          alt="Obstacle"
+          :style="{ right: obstacle.position + 'px', backgroundColor: 'transparent' }"
+        />
+
         <!-- Ground -->
         <div class="ground"></div>
       </div>
-    
+
       <!-- Controls -->
       <div class="controls">
         <button @click="startGame">Start Game</button>
       </div>
     </div>
-    
   </body>
   <script
     type="text/javascript"

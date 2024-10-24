@@ -78,7 +78,7 @@ new Vue({
       // Randomly choose an obstacle image from the pool
       const randomImage = this.obstacleImages[Math.floor(Math.random() * this.obstacleImages.length)];
       this.obstacles.push({
-        position: -50,  // Start just off the right side of the screen
+        position: -50,  // para começar do lado direito
         width: 50,
         height: 50,
         image: randomImage
@@ -86,20 +86,20 @@ new Vue({
     },
     checkCollision() {
       const runnerCenter = {
-        x: 50 + 25, // Runner's X position + half the width (center)
-        y: this.runnerPosition + 25 // Runner's Y position + half the height (center)
+        x: 50 + 25, 
+        y: this.runnerPosition + 25
       };
     
+      // Criterios de comparação para o check final
       let closestObstacle = null;
-      let closestDistance = Infinity; // Start with a large number to compare distances
+      let closestDistance = Infinity; 
 
       this.obstacles.forEach(obstacle => {
         const obstacleCenter = {
-          x: 1000 - obstacle.position + 25, // Obstacle's X position + half width
-          y: 25 // Obstacle is on the ground, so its Y center is half its height
+          x: 1000 - obstacle.position + 25,
+          y: 25 
         };
     
-        // Calculate the distance between runner and obstacle centers
         const distanceX = Math.abs(runnerCenter.x - obstacleCenter.x);
         const distanceY = Math.abs(runnerCenter.y - obstacleCenter.y);
         const closestPossible = obstacleCenter.x - runnerCenter.x;
@@ -109,10 +109,7 @@ new Vue({
           closestObstacle = obstacle;
         }
 
-
-
-
-        // Check if the distance between centers is less than a threshold (50 is the size of the runner/obstacle)
+        // Ultimo check
         if (distanceX < 30 && distanceY < 20) {
           this.isGameOver = true;
           clearInterval(this.gameInterval);
@@ -136,25 +133,3 @@ new Vue({
     window.addEventListener('keydown', this.jump);
   },
 });
-
-
-
-
-
-//--------------- ISTO É PARA O .html !!!!! --------------------------
-// Para propósitos de prototipação ou aprendizado, você pode usar a versão mais recente com:
-// <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-// ou linha de comandos do code: npm install vue
-
-
-//Para produção, recomendados vincular a um número de versão específico para evitar quebra de funções das versões mais novas:
-// <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
-
-// Se você está usando Modulos ES nativos, existe uma build compatível com isso:
-/* 
-<script type="module">
-  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.esm.browser.js'
-</script>
-*/
-
-// Você pode navegar pelos códigos-fonte do pacote NPM em cdn.jsdelivr.net/npm/vue

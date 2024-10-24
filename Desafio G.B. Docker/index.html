@@ -1,0 +1,69 @@
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.js"
+></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+<script type="module">
+  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.esm.browser.js'
+</script>
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dodge the work</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="game-container">
+        <!-- Runner -->
+        <img 
+        class="runner" 
+        :class="{ jumping: isJumping }"
+        src="img/player1.png"
+        alt = "Character"
+        :style="{ bottom: runnerPosition + 'px' }"
+        />
+    
+        <!-- Obstacles -->
+        <img
+        class="obstacle"
+        v-for="(obstacle, index) in obstacles"
+        :key="index"
+        :src="obstacle.image"
+        alt="Obstacle"
+        :style="{ right: obstacle.position + 'px', backgroundColor: 'transparent' }"
+      />
+    
+        <!-- Ground -->
+        <div class="ground"></div>
+      </div>
+    
+      <!-- Controls -->
+      <div class="controls">
+        <button @click="startGame">Start Game</button>
+      </div>
+    </div>
+    
+  </body>
+  <script
+    type="text/javascript"
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+  ></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</html>
+
+<!--
+Qualquer dúvida sobre as tags usadas está tudo explicado na página do tutorial (com linhas identificadas)
+https://www.devmedia.com.br/vue-js-tutorial/38042
+-->

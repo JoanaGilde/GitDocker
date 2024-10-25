@@ -20,7 +20,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build ./joana -t joanagilde/desafio-gb-docker:latest
+        docker build ./GitDocker -t joanagilde/desafio-gb-docker:latest
 
     - name: Push Docker image
       run: |

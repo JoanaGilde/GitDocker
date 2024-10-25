@@ -1,5 +1,16 @@
 {
+  "name": "docker-node-app",
+  "version": "1.0.0",
+  "description": "A Dockerized Node.js app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
+    "express": "^4.18.0",
     "vue": "^3.5.12"
   }
 }
+
+
+
